@@ -3,26 +3,33 @@ import GeneralPrivacy from './GeneralPrivacy';
 import SpecificPrivacy from './SpecificPrivacy';
 import PrivacyTerms from './PrivacyTerms';
 import { translations } from './translations'; 
-const [activeService, setActiveService] = useState("bookings");
-function App() {
-  const [lang, setLang] = useState('ar'); 
-  const t = translations[lang]; 
-  const [emailInput, setEmailInput] = useState(""); // تعديل هنا لاستخدام useState مباشرة
 
+function App() {
+  // 1. الحالات (States)
+  const [lang, setLang] = useState('ar'); 
+  const [activeService, setActiveService] = useState("bookings");
+  const [emailInput, setEmailInput] = useState("");
+  
+  const t = translations[lang]; 
   const path = window.location.pathname;
 
-  // منطق إرسال الإيميل
+  // 2. دوال المنطق (Helper Functions)
+  const scrollToService = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
   const handleEmailSend = () => {
     if (!emailInput) {
       alert(lang === 'ar' ? "يرجى إدخال بريدك الإلكتروني أولاً" : "Please enter your email first");
       return;
     }
     const subject = encodeURIComponent("استفسار عن خدمات SalmanSaaS");
-    const body = encodeURIComponent(`مرحباً سلمان،\n\nأرغب في الاستفسار عن المزيد من التفاصيل بخصوص المنصة.\n\nبريدي للتواصل: ${emailInput}`);
+    const body = encodeURIComponent(`مرحباً سلمان،\n\nأرغب في الاستفسار عن المزيد من التفاصيل.\n\nبريدي: ${emailInput}`);
     window.location.href = `mailto:salman.houssam@gmail.com?subject=${subject}&body=${body}`;
   };
 
-  // التوجيه بين الصفحات
+  // 3. التوجيه (Routing)
   if (path === '/general-privacy') return <GeneralPrivacy />;
   if (path === '/specific-privacy') return <SpecificPrivacy />;
   if (path === '/privacy-terms') return <PrivacyTerms />;
@@ -38,19 +45,19 @@ function App() {
       {/* Navbar */}
       <nav className="container mx-auto px-6 py-6 flex justify-between items-center relative z-20">
         <div className="flex flex-col">
-          <div className="text-2xl font-bold flex items-center gap-2 text-slate-100">
+          <div className="text-2xl font-bold flex items-center gap-2 text-slate-100 uppercase tracking-tighter">
             <span className="text-purple-500 text-3xl">✦</span> SalmanSaaS
           </div>
           <button 
             onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
-            className="text-[10px] font-bold text-purple-400 mt-1 px-2 py-0.5 border border-purple-500/20 rounded-md hover:bg-purple-500/10 transition w-fit uppercase"
+            className="text-[10px] font-bold text-purple-400 mt-1 px-2 py-0.5 border border-purple-500/20 rounded-md hover:bg-purple-500/10 transition w-fit"
           >
             {lang === 'ar' ? 'Switch to English' : 'تحويل للعربية'}
           </button>
         </div>
         <div className="flex gap-8 items-center text-sm font-medium">
-          <a href="#services" className="hover:text-purple-400 transition hidden md:block text-slate-300">{t.navServices}</a>
-          <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="px-5 py-2.5 border border-purple-500/40 text-purple-400 rounded-xl hover:bg-purple-500/10 transition shadow-[0_0_15px_rgba(168,85,247,0.1)]">
+          <a href="#services" className="hover:text-purple-400 transition hidden md:block">{t.navServices}</a>
+          <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="px-5 py-2.5 border border-purple-500/40 text-purple-400 rounded-xl hover:bg-purple-500/10 transition shadow-[0_0_15px_rgba(168,85,247,0.1)] font-bold">
             {t.navContact}
           </a>
         </div>
@@ -74,7 +81,7 @@ function App() {
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
                 placeholder={t.emailPlaceholder} 
-                className="bg-transparent px-4 py-3 outline-none text-white w-full placeholder-slate-500 text-sm"
+                className="bg-transparent px-4 py-3 outline-none text-white w-full text-sm"
               />
               <button 
                 onClick={handleEmailSend}
@@ -87,49 +94,44 @@ function App() {
             <a 
               href={`https://wa.me/${whatsappNumber}?text=${t.whatsappText}`}
               target="_blank" rel="noreferrer"
-              className="bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white px-6 py-4 rounded-xl font-bold text-lg text-center flex items-center justify-center gap-3 transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(147,51,234,0.3)] border border-purple-400/30"
+              className="bg-gradient-to-r from-purple-600 to-purple-500 text-white px-6 py-4 rounded-xl font-bold text-lg text-center flex items-center justify-center gap-3 transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(147,51,234,0.3)] border border-purple-400/30"
             >
               {t.orderWhatsApp}
             </a>
           </div>
         </div>
 
-        {/* --- الداشبورد الفخم (النسخة المطورة) --- */}
+        {/* Dashboard Section */}
         <div className="md:w-1/2 relative w-full flex justify-center items-center perspective-1000 group">
           <div className="absolute -inset-4 bg-purple-500/10 blur-[100px] rounded-full opacity-50"></div>
           <div className="w-[100%] md:w-[115%] aspect-[4/3.2] bg-[#0d0718]/90 backdrop-blur-xl rounded-[2.5rem] border border-white/10 shadow-2xl flex flex-col overflow-hidden relative z-10">
             
-            {/* شريط الأدوات */}
+            {/* شريط الأزرار التفاعلي */}
             <div className="h-14 bg-white/5 border-b border-white/5 flex items-center px-6 justify-between">
               <div className="flex gap-2">
                 <button 
-               onClick={() => setActiveService("bookings")}
-               className={`text-[10px] px-3 py-1.5 rounded-full font-bold border 
-              ${activeService === "bookings" 
-              ? "bg-purple-600 text-white border-purple-400/30" 
-            : "bg-white/5 text-slate-400 border-white/5"}`}>
-            {t.dashBookings}
-            </button>
+                  onClick={() => { setActiveService("bookings"); scrollToService("bookings-section"); }}
+                  className={`text-[10px] px-3 py-1.5 rounded-full font-bold border transition-all
+                  ${activeService === "bookings" ? "bg-purple-600 text-white border-purple-400/30 shadow-[0_0_10px_rgba(168,85,247,0.4)]" : "bg-white/5 text-slate-400 border-white/5 hover:text-white"}`}
+                >
+                  {t.dashBookings}
+                </button>
 
-            <button 
-  onClick={() => setActiveService("menu")}
-  className={`text-[10px] px-3 py-1.5 rounded-full font-bold border 
-  ${activeService === "menu" 
-    ? "bg-purple-600 text-white border-purple-400/30" 
-    : "bg-white/5 text-slate-400 border-white/5"}`}
->
-  {t.dashMenu}
-            </button>
+                <button 
+                  onClick={() => { setActiveService("menu"); scrollToService("menu-section"); }}
+                  className={`text-[10px] px-3 py-1.5 rounded-full font-bold border transition-all
+                  ${activeService === "menu" ? "bg-purple-600 text-white border-purple-400/30 shadow-[0_0_10px_rgba(168,85,247,0.4)]" : "bg-white/5 text-slate-400 border-white/5 hover:text-white"}`}
+                >
+                  {t.dashMenu}
+                </button>
 
-          <button 
-  onClick={() => setActiveService("store")}
-  className={`text-[10px] px-3 py-1.5 rounded-full font-bold border 
-  ${activeService === "store" 
-    ? "bg-purple-600 text-white border-purple-400/30" 
-    : "bg-white/5 text-slate-400 border-white/5"}`}
->
-  {t.dashStore}
-           </button>
+                <button 
+                  onClick={() => { setActiveService("store"); scrollToService("store-section"); }}
+                  className={`text-[10px] px-3 py-1.5 rounded-full font-bold border transition-all
+                  ${activeService === "store" ? "bg-purple-600 text-white border-purple-400/30 shadow-[0_0_10px_rgba(168,85,247,0.4)]" : "bg-white/5 text-slate-400 border-white/5 hover:text-white"}`}
+                >
+                  {t.dashStore}
+                </button>
               </div>
               <div className="flex items-center gap-2 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
@@ -137,23 +139,14 @@ function App() {
               </div>
             </div>
 
-            {/* محتوى اللوحة */}
+            {/* محتوى الداشبورد المصغر */}
             <div className="flex-1 p-6 grid grid-cols-12 gap-4 min-h-0">
-              <div className="col-span-8 bg-white/5 rounded-[2rem] border border-white/5 p-5 flex flex-col group/card relative overflow-hidden">
-                <h3 className="text-sm font-bold text-white mb-4">{t.dashSalesTitle}</h3>
+              <div className="col-span-12 bg-white/5 rounded-[2rem] border border-white/5 p-5 flex flex-col">
+                <h3 className="text-sm font-bold text-white mb-4">{activeService === "bookings" ? t.dashSalesTitle : activeService === "menu" ? t.dashMenu : t.dashStore}</h3>
                 <div className="flex-1 flex items-end justify-between gap-2">
                   {[40, 70, 90, 65, 100].map((h, i) => (
-                    <div key={i} style={{height: `${h}%`}} className={`flex-1 rounded-t-lg transition-all duration-700 ${i === 4 ? 'bg-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.5)]' : 'bg-white/10 hover:bg-white/20'}`}></div>
+                    <div key={i} style={{height: `${h}%`}} className={`flex-1 rounded-t-lg transition-all duration-700 ${i === 4 ? 'bg-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.5)]' : 'bg-white/10'}`}></div>
                   ))}
-                </div>
-              </div>
-              <div className="col-span-4 flex flex-col gap-4">
-                <div className="flex-1 bg-white/5 rounded-[2rem] border border-white/5 p-4 flex flex-col items-center justify-center text-center">
-                  <span className="text-[10px] font-bold text-slate-400 mb-1">{t.dashUpcoming}</span>
-                  <span className="text-2xl font-black text-white tracking-tighter">14</span>
-                </div>
-                <div className="bg-purple-600/20 rounded-[2rem] border border-purple-500/20 p-4 text-center">
-                   <p className="text-[9px] text-purple-300 font-bold uppercase tracking-widest">Active SaaS</p>
                 </div>
               </div>
             </div>
@@ -161,39 +154,73 @@ function App() {
         </div>
       </header>
 
-      {/* Services Section */}
-      <section className="py-20 bg-[#0e071c] border-t border-purple-900/30" id="services">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">{t.servicesTitle}</h2>
-          <p className="text-slate-400 mb-16 max-w-2xl mx-auto">{t.servicesDesc}</p>
-          <div className="flex flex-col gap-12 max-w-5xl mx-auto">
-            <div className="bg-[#130924] p-8 md:p-12 rounded-3xl border border-purple-500/30 text-center md:text-right relative overflow-hidden group">
-              <div className="absolute top-0 left-0 w-1 h-full bg-purple-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <h3 className="text-3xl font-bold text-slate-100 mb-4">{t.s1Title}</h3>
-              <p className="text-slate-400 mb-6">{t.s1Desc}</p>
-              <button className="text-purple-400 font-bold hover:text-purple-300 transition-colors">{t.s1Btn}</button>
+      {/* --- الأقسام الجديدة --- */}
+
+      {/* 1. قسم الحجوزات (Calendar) */}
+      <section id="bookings-section" className="py-24 border-t border-purple-900/30 bg-[#0c0618]/50">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-black text-white mb-10 text-center tracking-tight">
+            {t.service1Title}
+          </h2>
+          <div className="bg-[#0e071c] p-8 rounded-[2.5rem] border border-purple-500/20 max-w-4xl mx-auto shadow-2xl backdrop-blur-sm">
+            <div className="grid grid-cols-7 gap-3 text-center text-xs font-bold text-purple-400 mb-6 uppercase tracking-widest">
+              {["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(d => <div key={d}>{d}</div>)}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-center md:text-right">
-              <div className="bg-[#130924] p-8 rounded-3xl border border-purple-500/10 hover:border-purple-500/30 transition-all">
-                <h3 className="text-2xl font-bold text-purple-300 mb-3">{t.s2Title}</h3>
-                <p className="text-slate-400 text-sm mb-6">{t.s2Desc}</p>
-              </div>
-              <div className="bg-[#130924] p-8 rounded-3xl border border-purple-500/10 hover:border-purple-500/30 transition-all">
-                <h3 className="text-2xl font-bold text-slate-200 mb-3">{t.s3Title}</h3>
-                <p className="text-slate-400 text-sm mb-6">{t.s3Desc}</p>
-              </div>
+            <div className="grid grid-cols-7 gap-3">
+              {[...Array(30)].map((_, i) => (
+                <div key={i} className="aspect-square rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-purple-600/30 hover:border-purple-500/50 transition-all cursor-pointer group">
+                  <span className="text-slate-300 group-hover:text-white font-bold text-sm">{i+1}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
+      {/* 2. قسم المنيو (Menu Items) */}
+      <section id="menu-section" className="py-24 border-t border-purple-900/30">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-4xl font-black text-white mb-6 tracking-tight">{t.service2Title}</h2>
+          <p className="text-slate-400 mb-12 max-w-2xl mx-auto">{t.service2Desc}</p>
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {[1,2,3].map(i => (
+              <div key={i} className="bg-[#130924] p-8 rounded-[2rem] border border-purple-500/10 hover:border-purple-500/40 transition-all group">
+                <div className="w-12 h-12 bg-purple-500/10 rounded-xl mb-6 mx-auto flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">✦</div>
+                <h3 className="text-white font-bold text-xl mb-3">Item {i}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">Delicious premium selection crafted with the finest ingredients.</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. قسم المتجر (Store Products) */}
+      <section id="store-section" className="py-24 border-t border-purple-900/30 bg-[#0c0618]/50">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-4xl font-black text-white mb-6 tracking-tight">{t.service3Title}</h2>
+          <p className="text-slate-400 mb-12 max-w-2xl mx-auto">{t.service3Desc}</p>
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {[1,2,3].map(i => (
+              <div key={i} className="bg-[#130924] p-8 rounded-[2rem] border border-purple-500/10 hover:shadow-[0_0_30px_rgba(168,85,247,0.1)] transition-all">
+                <div className="aspect-video bg-slate-900 rounded-2xl mb-6 border border-white/5"></div>
+                <h3 className="text-white font-bold text-xl mb-2">Product {i}</h3>
+                <p className="text-slate-500 text-sm mb-6">Premium SaaS tool for your business needs.</p>
+                <button className="w-full bg-purple-600 hover:bg-purple-500 py-3 rounded-xl text-white font-bold transition-all shadow-lg">Buy Now</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="bg-[#090412] pt-12 pb-6 border-t border-purple-900/30">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-slate-500 text-sm text-center">© {new Date().getFullYear()} SalmanSaaS. {t.footerRights}</div>
-          <div className="flex gap-6 text-sm">
-            <a href="/general-privacy" className="text-slate-400 hover:text-purple-400 transition">{t.footerPrivacy}</a>
-            <a href="/specific-privacy" className="text-slate-400 hover:text-purple-400 transition">{t.footerTerms}</a>
+      <footer className="bg-[#090412] pt-12 pb-8 border-t border-purple-900/30">
+        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="text-slate-500 text-sm">
+            © {new Date().getFullYear()} SalmanSaaS. {t.footerRights}
+          </div>
+          <div className="flex gap-8 text-sm font-bold uppercase tracking-widest">
+            <a href="/general-privacy" className="hover:text-purple-400 transition">{t.footerPrivacy}</a>
+            <a href="/specific-privacy" className="hover:text-purple-400 transition">{t.footerTerms}</a>
           </div>
         </div>
       </footer>
