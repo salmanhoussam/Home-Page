@@ -56,10 +56,14 @@ const BookingSection = () => {
           <div className="relative z-10 transform transition-all duration-700 hover:scale-[1.03] hover:-translate-y-2">
             {/* لاحظ هنا: استدعينا الصورة مباشرة بالمسار المطلق من مجلد public */}
            <img 
-           src="/booking-mockup.png" 
-           alt="WhatsApp Booking Dashboard" 
-          className="w-full h-auto object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)]"
-          />
+              src="/booking-mockup.png" 
+              alt={lang === 'ar' ? 'لوحة تحكم حجوزات واتساب' : 'WhatsApp Booking Dashboard'} 
+              className="w-full h-auto object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)]"
+              onError={(e) => {
+                e.currentTarget.onerror = null; // لمنع التكرار
+                e.currentTarget.src = "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23130924'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='40' font-weight='bold' fill='%23a855f7'%3EBooking Image Placeholder%3C/text%3E%3C/svg%3E";
+              }}
+            />
           </div>
         </div>
 

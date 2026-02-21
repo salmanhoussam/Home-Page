@@ -109,13 +109,14 @@ const HeroSection = () => {
              
              {/* الصورة تتغير حسب الزر المختار */}
              <img 
-               key={activeService} // key هنا يجعل الصورة تومض بسلاسة عند التبديل
+               key={activeService} 
                src={getActiveImage()} 
                alt={`${activeService} preview`}
                className="w-full h-full object-contain max-h-[300px] drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] animate-fade-in transition-all duration-500 hover:scale-[1.02]"
                onError={(e) => {
-                 // إذا لم يجد الصورة (مثلاً صور المنيو والمتجر التي لم تصممها بعد)
-                 e.target.src = 'https://via.placeholder.com/800x600/130924/a855f7?text=Coming+Soon...';
+                 e.currentTarget.onerror = null; // 🛑 هذا السطر يمنع الحلقة اللانهائية تماماً
+                 // رسم صورة كودية لا تحتاج لإنترنت أبداً
+                 e.currentTarget.src = "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23130924'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='40' font-weight='bold' fill='%23a855f7'%3EImage Not Found%3C/text%3E%3C/svg%3E";
                }}
              />
           </div>
