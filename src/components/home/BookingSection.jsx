@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from '../../hooks/useTranslation';
 // 1. استيراد الصورة من مجلد الأصول (assets)
-import bookingMockup from '../../assets/booking-mockup.png'; 
+import bookingMockup from '../assets/booking-mockup.png'; 
 
 const BookingSection = () => {
   const { t, lang } = useTranslation();
