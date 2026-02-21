@@ -1,24 +1,15 @@
-// المسار: src/components/home/HeroSection.jsx
-
 import React, { useState } from 'react';
 import { useTranslation } from '../../hooks/useTranslation';
 
 const HeroSection = () => {
   const { t, lang } = useTranslation();
   
-  // حالات القسم الرئيسي
+  // حالة التحكم بالخدمة المعروضة (حجوزات، منيو، متجر)
   const [activeService, setActiveService] = useState("bookings");
   const [emailInput, setEmailInput] = useState("");
   
   const whatsappNumber = "96178727986";
 
-  // دالة التمرير للأقسام الأخرى
-  const scrollToService = (id) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  // دالة إرسال الإيميل
   const handleEmailSend = () => {
     if (!emailInput) {
       alert(lang === 'ar' ? "يرجى إدخال بريدك الإلكتروني" : "Please enter your email");
@@ -27,10 +18,20 @@ const HeroSection = () => {
     window.location.href = `mailto:salman.houssam@gmail.com?subject=Inquiry&body=Email: ${emailInput}`;
   };
 
+  // دالة لتحديد الصورة التي ستظهر بناءً على الزر المضغوط
+  const getActiveImage = () => {
+    switch(activeService) {
+      case 'menu': return '/menu-mockup.png'; // صورة المنيو (يجب رفعها لاحقاً)
+      case 'store': return '/store-mockup.png'; // صورة المتجر (يجب رفعها لاحقاً)
+      case 'bookings':
+      default: return '/booking-mockup.png'; // صورة الحجوزات التي صممناها
+    }
+  };
+
   return (
     <header className="container mx-auto px-6 py-12 md:py-20 flex flex-col-reverse md:flex-row items-center justify-between relative z-10">
       
-      {/* 1. قسم النصوص والدعوة للإجراء (الجهة اليمنى بالعربي) */}
+      {/* 1. قسم النصوص والدعوة للإجراء */}
       <div className="md:w-1/2 mt-12 md:mt-0">
         <h1 className="text-5xl md:text-7xl font-extrabold mb-8 leading-[1.1] tracking-tight text-white">
           {t.heroTitle1} <br />
@@ -39,13 +40,11 @@ const HeroSection = () => {
           </span>
         </h1>
         
-        {/* النص الذي تم تعديله بناءً على صورتك السابقة */}
         <p className="text-xl text-slate-400 mb-10 max-w-lg leading-relaxed">
           {t.heroSubDesc || "أنظمة سحابية متطورة لإدارة الحجوزات والقوائم الإلكترونية، صممت لتعكس فخامة علامتك التجارية."}
         </p>
 
         <div className="flex flex-col gap-4 max-w-md">
-          {/* حقل الإيميل */}
           <div className="bg-white/5 p-1.5 rounded-xl flex items-center border border-slate-700/50 focus-within:border-purple-500/50 backdrop-blur-md">
             <input 
               type="email" 
@@ -62,7 +61,6 @@ const HeroSection = () => {
             </button>
           </div>
           
-          {/* زر الواتساب الرئيسي */}
           <a 
             href={`https://wa.me/${whatsappNumber}?text=${t.whatsappText}`} 
             target="_blank" 
@@ -74,18 +72,18 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* 2. قسم العرض التفاعلي (Dashboard Preview) - (الجهة اليسرى بالعربي) */}
+      {/* 2. قسم العرض التفاعلي (الصندوق الأحمر في صورتك) */}
       <div className="md:w-1/2 relative w-full flex justify-center items-center perspective-1000">
-        <div className="w-[100%] md:w-[115%] aspect-[4/3.2] bg-[#0d0718]/90 backdrop-blur-xl rounded-[2.5rem] border border-white/10 shadow-2xl flex flex-col overflow-hidden relative z-10">
+        <div className="w-[100%] md:w-[115%] aspect-[4/3.2] bg-[#0d0718]/90 backdrop-blur-xl rounded-[2.5rem] border border-white/10 shadow-2xl flex flex-col overflow-hidden relative z-10 group">
           
-          {/* شريط الأزرار العلوي */}
+          {/* شريط الأزرار العلوي للتبديل بين المنتجات */}
           <div className="h-14 bg-white/5 border-b border-white/5 flex items-center px-6 justify-between">
             <div className="flex gap-2">
               {['bookings', 'menu', 'store'].map((service) => (
                 <button
                   key={service}
-                  onClick={() => { setActiveService(service); scrollToService(`${service}-section`); }}
-                  className={`text-[10px] px-3 py-1.5 rounded-full font-bold border transition-all ${
+                  onClick={() => setActiveService(service)}
+                  className={`text-[10px] px-3 py-1.5 rounded-full font-bold border transition-all duration-300 ${
                     activeService === service 
                     ? "bg-purple-600 text-white border-purple-400/30 shadow-[0_0_10px_rgba(168,85,247,0.4)]" 
                     : "bg-white/5 text-slate-400 border-white/5 hover:text-white"
@@ -96,7 +94,6 @@ const HeroSection = () => {
               ))}
             </div>
             
-            {/* مؤشر الحالة (Status) */}
             <div className="flex items-center gap-2 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
               <span className="text-[9px] font-bold text-emerald-400 uppercase tracking-tighter">
@@ -105,24 +102,22 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* الرسم البياني والمحتوى الداخلي للداشبورد */}
-          <div className="flex-1 p-6 flex flex-col justify-center">
-            <div className="h-full bg-white/5 rounded-[2rem] border border-white/5 p-5 flex flex-col">
-              <h3 className="text-sm font-bold text-white mb-4">
-                {activeService === 'bookings' ? (t.dashSalesTitle || 'Bookings Analytics') : (lang === 'ar' ? 'تحليلات النظام' : 'System Analytics')}
-              </h3>
-              <div className="flex-1 flex items-end justify-between gap-2">
-                {[40, 70, 90, 65, 100].map((h, i) => (
-                  <div 
-                    key={i} 
-                    style={{height: `${h}%`}} 
-                    className={`flex-1 rounded-t-lg transition-all duration-700 ${
-                      i === 4 ? 'bg-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.5)]' : 'bg-white/10'
-                    }`}
-                  ></div>
-                ))}
-              </div>
-            </div>
+          {/* مساحة عرض الصورة الديناميكية */}
+          <div className="flex-1 p-4 flex flex-col justify-center items-center bg-black/20 relative overflow-hidden">
+             {/* تأثير التوهج خلف الصورة */}
+             <div className="absolute inset-0 bg-purple-600/10 blur-[80px] rounded-full pointer-events-none"></div>
+             
+             {/* الصورة تتغير حسب الزر المختار */}
+             <img 
+               key={activeService} // key هنا يجعل الصورة تومض بسلاسة عند التبديل
+               src={getActiveImage()} 
+               alt={`${activeService} preview`}
+               className="w-full h-full object-contain max-h-[300px] drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] animate-fade-in transition-all duration-500 hover:scale-[1.02]"
+               onError={(e) => {
+                 // إذا لم يجد الصورة (مثلاً صور المنيو والمتجر التي لم تصممها بعد)
+                 e.target.src = 'https://via.placeholder.com/800x600/130924/a855f7?text=Coming+Soon...';
+               }}
+             />
           </div>
 
         </div>
