@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from '../../hooks/useTranslation';
+import bookingMockup from '../../assets/booking-mockup.png';
 
 const BookingSection = () => {
   const { t, lang } = useTranslation();
