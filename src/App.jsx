@@ -3,7 +3,7 @@ import GeneralPrivacy from './GeneralPrivacy';
 import SpecificPrivacy from './SpecificPrivacy';
 import PrivacyTerms from './PrivacyTerms';
 import { translations } from './translations'; 
-
+const [activeService, setActiveService] = useState("bookings");
 function App() {
   const [lang, setLang] = useState('ar'); 
   const t = translations[lang]; 
@@ -102,9 +102,34 @@ function App() {
             {/* شريط الأدوات */}
             <div className="h-14 bg-white/5 border-b border-white/5 flex items-center px-6 justify-between">
               <div className="flex gap-2">
-                <button className="text-[10px] bg-purple-600 text-white px-3 py-1.5 rounded-full font-bold border border-purple-400/30">{t.dashBookings}</button>
-                <button className="text-[10px] bg-white/5 text-slate-400 px-3 py-1.5 rounded-full border border-white/5 hover:text-white transition">{t.dashMenu}</button>
-                <button className="text-[10px] bg-white/5 text-slate-400 px-3 py-1.5 rounded-full border border-white/5 hover:text-white transition">{t.dashStore}</button>
+                <button 
+               onClick={() => setActiveService("bookings")}
+               className={`text-[10px] px-3 py-1.5 rounded-full font-bold border 
+              ${activeService === "bookings" 
+              ? "bg-purple-600 text-white border-purple-400/30" 
+            : "bg-white/5 text-slate-400 border-white/5"}`}>
+            {t.dashBookings}
+            </button>
+
+            <button 
+  onClick={() => setActiveService("menu")}
+  className={`text-[10px] px-3 py-1.5 rounded-full font-bold border 
+  ${activeService === "menu" 
+    ? "bg-purple-600 text-white border-purple-400/30" 
+    : "bg-white/5 text-slate-400 border-white/5"}`}
+>
+  {t.dashMenu}
+            </button>
+
+          <button 
+  onClick={() => setActiveService("store")}
+  className={`text-[10px] px-3 py-1.5 rounded-full font-bold border 
+  ${activeService === "store" 
+    ? "bg-purple-600 text-white border-purple-400/30" 
+    : "bg-white/5 text-slate-400 border-white/5"}`}
+>
+  {t.dashStore}
+           </button>
               </div>
               <div className="flex items-center gap-2 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
