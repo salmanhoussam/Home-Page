@@ -47,7 +47,7 @@ export const translations = {
 
     s3Title: "المتجر الإلكتروني",
     s3Desc: "منصة بيع متكاملة مع عربة تسوق، وبوابات دفع.",
-
+   heroSubDesc: "أنظمة سحابية متطورة لإدارة الحجوزات والقوائم الإلكترونية، صممت لتعكس فخامة علامتك التجارية.",
     // FOOTER
     footerRights: "جميع الحقوق محفوظة.",
     footerPrivacy: "الخصوصية العامة",
@@ -103,7 +103,7 @@ export const translations = {
     s3Title: "E-commerce Store",
     s3Desc:
       "Complete selling platform with shopping carts and payment gateways.",
-
+    heroSubDesc: "Advanced cloud-based systems for managing bookings and digital menus, crafted to reflect your brand's excellence.",
     // FOOTER
     footerRights: "All rights reserved.",
     footerPrivacy: "General Privacy",
