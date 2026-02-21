@@ -17,7 +17,7 @@ function App() {
   }
 
   // 4. المتغيرات الأساسية (رقم الواتساب)
-  const whatsappNumber = "961xxxxxxxx"; // ضع رقمك الحقيقي هنا
+  const whatsappNumber = "96178727986"; // ضع رقمك الحقيقي هنا
 
   // 5. واجهة الصفحة الرئيسية
   return (
