@@ -16,15 +16,13 @@ const Navbar = () => {
       </div>
       
       <div className="flex gap-8 items-center text-sm font-medium">
-        <a href="#services" className="hover:text-purple-400 transition hidden md:block">{t.navServices}</a>
-        <a 
-          href={`https://wa.me/${whatsappNumber}`} 
-          target="_blank" 
-          rel="noreferrer" 
-          className="px-5 py-2.5 border border-purple-500/40 text-purple-400 rounded-xl hover:bg-purple-500/10 transition shadow-[0_0_15px_rgba(168,85,247,0.1)] font-bold"
-        >
-          {t.navContact}
-        </a>
+  {/* قمنا بتغيير المسار ليتطابق مع معرف قسم الحجوزات */}
+  <a 
+    href="#bookings-section" 
+    className="hover:text-purple-400 transition hidden md:block cursor-pointer"
+  >
+    {t.navServices}
+  </a>
       </div>
     </nav>
   );
