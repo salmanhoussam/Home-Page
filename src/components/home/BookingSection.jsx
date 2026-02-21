@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from '../../hooks/useTranslation';
-// استيراد الصورة من مجلد الأصول (assets)
-import bookingMockup from '../../assets/booking-mockup.png'; 
+
+// قمنا بحذف سطر الاستيراد (import bookingMockup) من هنا تماماً
 
 const BookingSection = () => {
   const { t, lang } = useTranslation();
@@ -38,7 +38,6 @@ const BookingSection = () => {
               </span>
             </li>
 
-            {/* السطر الثالث الجديد */}
             <li className="flex items-center gap-4 text-slate-200">
               <div className="w-10 h-10 rounded-xl bg-purple-600/20 flex items-center justify-center border border-purple-500/30 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
                 <span className="text-purple-400 font-bold text-lg">✓</span>
@@ -55,8 +54,9 @@ const BookingSection = () => {
           <div className="absolute inset-0 bg-purple-600/20 blur-[100px] rounded-full opacity-60 group-hover:opacity-80 transition-opacity duration-700 pointer-events-none"></div>
           
           <div className="relative z-10 transform transition-all duration-700 hover:scale-[1.03] hover:-translate-y-2">
+            {/* لاحظ هنا: استدعينا الصورة مباشرة بالمسار المطلق من مجلد public */}
             <img 
-              src={bookingMockup} 
+              src="/booking-mockup.png" 
               alt={lang === 'ar' ? 'لوحة تحكم حجوزات واتساب' : 'WhatsApp Booking Dashboard'} 
               className="w-full h-auto object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)]"
             />
