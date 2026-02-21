@@ -2,35 +2,81 @@ import React from 'react';
 
 function SpecificPrivacy() {
   return (
-    <div dir="ltr" className="min-h-screen bg-[#090412] text-slate-300 font-sans p-8 md:p-20">
-      <div className="max-w-4xl mx-auto bg-[#130924] p-10 rounded-3xl border border-purple-500/20 shadow-2xl relative">
-        <a href="/" className="text-purple-400 hover:text-purple-300 text-sm font-bold mb-10 inline-block">
-          ← Back to Home
+    <div dir="ltr" className="min-h-screen bg-[#090412] text-slate-300 font-sans p-6 md:p-20 selection:bg-purple-500 selection:text-white">
+      
+      {/* زر العودة */}
+      <div className="max-w-4xl mx-auto mb-10">
+        <a href="/" className="group text-purple-400 hover:text-purple-300 text-sm font-bold flex items-center gap-2 transition-all">
+          <span className="transition-transform group-hover:-translate-x-1">←</span> Back to SalmanSaaS
         </a>
+      </div>
+
+      <div className="max-w-4xl mx-auto bg-[#130924] p-8 md:p-16 rounded-[2.5rem] border border-purple-500/20 shadow-2xl relative overflow-hidden">
         
-        <h1 className="text-4xl font-bold text-white mb-6">Terms of Service</h1>
-        <p className="text-xs text-slate-500 mb-12 uppercase tracking-widest">Interactive Automation Terms | 2026</p>
+        {/* تأثير الإضاءة البنفسجي */}
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-600/5 blur-[100px] rounded-full pointer-events-none"></div>
 
-        <div className="space-y-8 text-slate-400 leading-relaxed">
-          <section className="border-l-2 border-slate-500/30 pl-6">
-            <h3 className="text-xl font-bold text-slate-100 mb-3">1. Service Description</h3>
-            <p>SalmanSaaS provides an automated interface via WhatsApp buttons and menus to facilitate digital orders and bookings. The system responds based on hard-coded logic and structured data retrieval.</p>
+        <header className="border-b border-purple-500/10 pb-8 mb-10 text-center md:text-left">
+          <h1 className="text-4xl font-black text-white mb-4 tracking-tight">Terms of Service & Data Privacy</h1>
+          <p className="text-purple-400 text-sm font-medium">How we manage multi-client data isolation and messaging.</p>
+        </header>
+
+        <div className="space-y-12">
+          
+          {/* 1. نظام عزل البيانات (Multi-Tenant Isolation) */}
+          <section className="bg-white/5 p-6 md:p-8 rounded-3xl border border-slate-800">
+            <h2 className="text-2xl font-bold text-slate-100 mb-6 flex items-center gap-3">
+               <span className="p-2 bg-purple-500/20 rounded-lg">🛡️</span> Data Isolation Policy
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed">
+              <div className="p-4 bg-[#090412]/50 rounded-2xl border border-purple-500/10">
+                <h3 className="text-purple-400 font-bold mb-2">For Businesses (Our Clients)</h3>
+                <p>Each business operates in a strictly isolated environment. Clients can only see and manage their own customers, bookings, and data. There is <b>no cross-communication</b> or data sharing between different business accounts.</p>
+              </div>
+              <div className="p-4 bg-[#090412]/50 rounded-2xl border border-purple-500/10">
+                <h3 className="text-purple-400 font-bold mb-2">For Customers (End Users)</h3>
+                <p>End users can only see their own booking history within the specific business they are interacting with. User data is private and <b>never visible</b> to other customers of the same or different businesses.</p>
+              </div>
+            </div>
           </section>
 
-          <section className="border-l-2 border-slate-500/30 pl-6">
-            <h3 className="text-xl font-bold text-slate-100 mb-3">2. User Interactions</h3>
-            <p>By clicking on chat buttons or selecting menu items, you agree to trigger the associated automated workflows. Users are responsible for the accuracy of information entered through these interactive components.</p>
+          {/* 2. سياسة رسائل الواتساب (WhatsApp Messaging Privacy) */}
+          <section>
+            <h2 className="text-2xl font-bold text-slate-100 mb-6 flex items-center gap-3">
+               <span className="p-2 bg-purple-500/20 rounded-lg">💬</span> WhatsApp Messaging Privacy
+            </h2>
+            <div className="space-y-4 text-slate-400">
+              <p>Our service uses <b>WhatsApp Business API</b> to communicate with users. By messaging our WhatsApp number, you agree that:</p>
+              <ul className="space-y-3">
+                {[
+                  "You initiate communication with us through a message or button click.",
+                  "We may send automated responses including buttons, lists, and order confirmations.",
+                  "We may store chat data to process and manage your specific bookings.",
+                  "We do not send spam or promotional messages without your explicit consent.",
+                  'You can opt out anytime by sending the word "STOP".'
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="text-purple-500 mt-1">✔</span>
+                    <span className="text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </section>
 
-          <section className="border-l-2 border-slate-500/30 pl-6">
-            <h3 className="text-xl font-bold text-slate-100 mb-3">3. Opt-in & Messaging</h3>
-            <p>Interaction starts only when the user initiates a conversation or clicks a "Get Started" button. We follow a strict anti-spam policy and only send updates related to your specific transactions.</p>
-          </section>
+          {/* 3. توضيح شركة ميتا */}
+          <div className="p-4 bg-slate-400/5 rounded-xl border border-slate-700/50 text-center">
+            <p className="text-xs text-slate-500">
+              This service is powered by the official <b>Meta Platforms, Inc.</b> API. 
+              We strictly follow the WhatsApp Business Commerce Policy.
+            </p>
+          </div>
 
-          <section className="p-6 bg-slate-100/5 rounded-2xl border border-slate-500/20 text-center">
-            <p className="italic text-sm">"Simplified automation for a faster business experience."</p>
-          </section>
         </div>
+
+        <footer className="mt-16 pt-8 border-t border-purple-500/10 text-center">
+          <p className="text-xs text-slate-500 uppercase tracking-widest">Version 1.2 | Last updated: 2026</p>
+        </footer>
       </div>
     </div>
   );
