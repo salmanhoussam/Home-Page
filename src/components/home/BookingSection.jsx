@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from '../../hooks/useTranslation';
-import bookingMockup from '../../assets/booking-mockup.png';
+// 1. استيراد الصورة من مجلد الأصول (assets)
+import bookingMockup from '../../assets/booking-mockup.png'; 
 
 const BookingSection = () => {
   const { t, lang } = useTranslation();
@@ -9,7 +10,7 @@ const BookingSection = () => {
     <section id="bookings-section" className="py-24 border-t border-purple-900/30 bg-[#0c0618]/50 overflow-hidden">
       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
         
-        {/* 1. جهة النصوص (النص العربي سيكون على اليمين بفضل الـ RTL) */}
+        {/* جهة النصوص */}
         <div className="md:w-1/2 relative z-10">
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight leading-tight">
             {t.service1Title}
@@ -34,15 +35,14 @@ const BookingSection = () => {
           </ul>
         </div>
 
-        {/* 2. جهة الصورة (مع تأثيرات الـ SaaS الفخمة) */}
+        {/* جهة الصورة */}
         <div className="md:w-1/2 w-full relative group">
-          {/* تأثير التوهج البنفسجي خلف الصورة (Glow) */}
           <div className="absolute inset-0 bg-purple-600/20 blur-[100px] rounded-full opacity-60 group-hover:opacity-80 transition-opacity duration-700 pointer-events-none"></div>
           
-          {/* حاوية الصورة مع حركة خفيفة عند تمرير الماوس */}
           <div className="relative z-10 transform transition-all duration-700 hover:scale-[1.03] hover:-translate-y-2">
+            {/* 2. استخدام المتغير هنا بدلاً من المسار النصي */}
             <img 
-              src="/images/booking-mockup.png" // تأكد من أن اسم الصورة يطابق هذا المسار
+              src={bookingMockup} 
               alt={lang === 'ar' ? 'لوحة تحكم حجوزات واتساب' : 'WhatsApp Booking Dashboard'} 
               className="w-full h-auto object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)]"
             />
