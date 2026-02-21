@@ -1,8 +1,10 @@
 // src/App.jsx
+import React from 'react';
 import { LanguageProvider } from './contexts/LanguageContext';
 import HomePage from './pages/HomePage';
 import GeneralPrivacyPage from './pages/GeneralPrivacyPage';
-// ... بقية الاستيرادات
+import SpecificPrivacyPage from './pages/SpecificPrivacyPage';
+import PrivacyTermsPage from './pages/PrivacyTermsPage';
 
 function App() {
   const path = window.location.pathname;

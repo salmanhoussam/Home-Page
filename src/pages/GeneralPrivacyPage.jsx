@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from '../hooks/useTranslation';
+import LanguageSwitcher from '../components/layout/LanguageSwitcher';
 
 function GeneralPrivacyPage() {
   const { lang } = useTranslation();
@@ -9,11 +10,12 @@ function GeneralPrivacyPage() {
     <div dir={isAr ? "rtl" : "ltr"} className="min-h-screen bg-[#090412] text-slate-300 font-sans p-6 md:p-20 selection:bg-purple-500 selection:text-white">
       
       {/* زر العودة */}
-      <div className="max-w-4xl mx-auto mb-10">
+      <div className="max-w-4xl mx-auto mb-10 flex justify-between items-center">
         <button onClick={() => window.history.back()} className="group text-purple-400 hover:text-purple-300 text-sm font-bold flex items-center gap-2 transition-all">
           <span className="transition-transform group-hover:translate-x-1">{isAr ? '→' : '←'}</span> 
           {isAr ? 'العودة للموقع' : 'Back to SalmanSaaS'}
         </button>
+        <LanguageSwitcher />
       </div>
 
       <div className="max-w-4xl mx-auto bg-[#130924] p-8 md:p-16 rounded-[2.5rem] border border-purple-500/20 shadow-2xl relative overflow-hidden">
