@@ -55,11 +55,11 @@ const BookingSection = () => {
           
           <div className="relative z-10 transform transition-all duration-700 hover:scale-[1.03] hover:-translate-y-2">
             {/* لاحظ هنا: استدعينا الصورة مباشرة بالمسار المطلق من مجلد public */}
-            <img 
-              src="/booking-mockup.png" 
-              alt={lang === 'ar' ? 'لوحة تحكم حجوزات واتساب' : 'WhatsApp Booking Dashboard'} 
-              className="w-full h-auto object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)]"
-            />
+           <img 
+           src="/booking-mockup.png" 
+           alt="WhatsApp Booking Dashboard" 
+          className="w-full h-auto object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)]"
+          />
           </div>
         </div>
 
