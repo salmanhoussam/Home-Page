@@ -88,9 +88,13 @@ function GeneralPrivacyPage() {
             <p className="mb-4 text-sm">{isAr ? 'يمكنك طلب عرض، تعديل، أو حذف بياناتك في أي وقت.' : 'You can request to view, modify, or delete your data at any time.'}</p>
             <div className="flex flex-col md:flex-row gap-4 items-center">
               <span className="text-white font-bold">{isAr ? 'تواصل معنا:' : 'Contact us:'}</span>
-              <a href="mailto:support@salmansaas.com" className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg transition text-sm">
-                support@salmansaas.com
-              </a>
+              <a
+              href="mailto:houssam.info101@gmail.com?subject=Support%20Request%20-%20SalmanSaaS&body=Please%20describe%20your%20issue%20or%20complaint%20here."
+             class="w-full sm:w-auto flex items-center justify-center gap-3 bg-purple-600/10 hover:bg-purple-600/20 border border-purple-500/30 text-purple-400 px-8 py-4 rounded-2xl font-bold transition-all hover:scale-[1.05] shadow-[0_0_30px_rgba(168,85,247,0.1)]"
+             >
+             <span class="text-xl">📧</span>
+            support@salmansaas.com
+           </a>
             </div>
           </section>
 
